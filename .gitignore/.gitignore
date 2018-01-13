@@ -1,0 +1,33 @@
+Sub MergeWorkbooks()
+
+   Dim FileSet
+
+   Dim i As Integer
+
+   On Error GoTo 0
+
+   Application.ScreenUpdating = False
+
+   FileSet = Application.GetOpenFilename(FileFilter:="Excel 2003(*.xls),*.xls,Excel 2007(*.xlsx),*.xlsx", _
+
+                                           MultiSelect:=True, Title:="选择要合并的文件")
+
+   If TypeName(FileSet) = "Boolean" Then
+
+       GoTo ExitSub
+
+   End If
+
+   For Each Filename In FileSet
+
+Workbooks.Open Filename
+
+       Sheets().Move After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count)
+
+   Next
+
+ExitSub:
+
+   Application.ScreenUpdating = True
+
+End Sub
